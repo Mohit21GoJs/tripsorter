@@ -4,5 +4,19 @@
   "main": "index.js",
   "repository": "git@github.com:Mohit21GoJs/tripsorter.git",
   "author": "Mohit Yadav <mohit.yadav@xebia.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./dist/server/app.js",
+    "build": "babel src -d dist",   
+    "start-with-nodemon": "nodemon --exec babel-node --ignore='node_modules' -- ./src/server/app.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.11"
+  }
 }
