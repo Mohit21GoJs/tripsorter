@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server/app.js",
-    "build": "babel src -d dist",   
+    "build": "babel src -d dist",
     "start-with-nodemon": "nodemon --exec babel-node --ignore='node_modules' -- ./src/server/app.js"
   },
   "devDependencies": {
@@ -17,6 +17,9 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "babel-preset-env": "^1.7.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
     "nodemon": "^1.18.11"
   }
 }
