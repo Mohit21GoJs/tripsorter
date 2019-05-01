@@ -4,10 +4,11 @@
     [
       "module-resolver",
       {
-        "root": ["./src"],
         "alias": {
           "client": "./src/client",
-          "server": "./src/server"
+          "server": "./src/server",
+          "packages": "./packages",
+          "root": "."
         }
       }
     ]

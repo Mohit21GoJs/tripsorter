@@ -9,7 +9,8 @@ module.exports = {
   settings: {
     'import/resolver': { 'babel-module': {} },
   },
-  plugins: [
-    'import',
-  ],
+  plugins: ['import'],
+  rules: {
+    'class-methods-use-this': 'off',
+  },
 };
