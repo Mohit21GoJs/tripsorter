@@ -7,10 +7,11 @@ import dijkstra from 'packages/dijkstra/dijkstra';
 
 // @TODO: case when cost is same so second fallback to time - think
 // @TODO: handle case with same distance from 2 paths
+// Req validation using joi
 // @Enhancements: memoize, compression, higher order ffunction, error handling, unit test
 
 const calculateCostWithDiscount = (cost, discount) =>
-  discount ? cost - (cost * discount) / 100 : cost; 
+  discount ? cost - (cost * discount) / 100 : cost;
 
 export const extractMinFareDeals = deals =>
   Array.isArray(deals) &&
