@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,6 +16,9 @@ const styles = theme => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  // progress: {
+  //   width: 100,
+  // },
 });
 
 const calculateTotalMinutes = memoize((deals = []) =>
@@ -37,12 +41,13 @@ const timeConvert = memoize(timeInMinutes => {
 });
 
 function ListCard(props) {
-  const { classes, deals, currency, totalCost } = props;
+  const { classes, deals, currency, totalCost, isLoadingDeals } = props;
   const totalTime = timeConvert(calculateTotalMinutes(deals));
   return (
     <Card>
       <CardHeader title="Best Deal(s)" />
       <CardContent>
+        {isLoadingDeals && <CircularProgress className={classes.progress} />}
         <List dense className={classes.root}>
           {Array.isArray(deals) && deals.length ? (
             <React.Fragment>

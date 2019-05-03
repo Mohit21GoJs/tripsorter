@@ -69,6 +69,7 @@ class App extends React.PureComponent {
       cheapest: searchPreferences.cheapest,
       quickest: searchPreferences.quickest,
     };
+    this.setState({ loadingDeals: true });
     postData('trips/search', reqBody).then(data => {
       if (data) {
         const { deals, currency, totalCost } = data;
@@ -76,6 +77,7 @@ class App extends React.PureComponent {
           deals,
           currency,
           totalCost,
+          loadingDeals: false,
         });
       }
     });
@@ -84,7 +86,17 @@ class App extends React.PureComponent {
   resetSearchHandler = () =>
     this.setState({
       searchPreferences: { ...initialSearchPreferences },
-    });
+      deals: [],
+      currency: '',
+      totalCost: '',
+    });x
+
+  checkSearchBtnDisabled = () =>
+    !this.state.searchPreferences.arrivalCity ||
+    !this.state.searchPreferences.departureCity ||
+    this.state.loadingDeals;
+
+  checkResetBtnDisabled = () => this.state.loadingDeals;
 
   componentDidMount() {
     getData('trips/cities')
@@ -151,6 +163,8 @@ class App extends React.PureComponent {
               isCheapestSelected={isCheapestSelected}
               searchHandler={this.searchHandler}
               resetHandler={this.resetSearchHandler}
+              isSeachBtnDisabled={this.checkSearchBtnDisabled()}
+              isResetBtnDisabled={this.checkResetBtnDisabled()}
               arrivalCityHandler={this.searchPreferenceHandler('arrivalCity')}
               departureCityHandler={this.searchPreferenceHandler(
                 'departureCity',
@@ -167,7 +181,12 @@ class App extends React.PureComponent {
           </Grid>
           <Grid item sm={1} />
           <Grid item xs={12} sm={6}>
-            <ListCard deals={deals} totalCost={totalCost} currency={currency} />
+            <ListCard
+              isLoadingDeals={this.state.loadingDeals}
+              deals={deals}
+              totalCost={totalCost}
+              currency={currency}
+            />
           </Grid>
         </Grid>
       </div>

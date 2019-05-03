@@ -33,6 +33,8 @@ function SearchComponent(props) {
     quickestFilterHandler,
     searchHandler,
     resetHandler,
+    isSeachBtnDisabled,
+    isResetBtnDisabled,
   } = props;
   return (
     <Card className={classes.root}>
@@ -77,10 +79,16 @@ function SearchComponent(props) {
 
         <Grid container alignItems="center">
           <Grid item xs={12} sm={6}>
-            <SearchButton handleClick={searchHandler} />
+            <SearchButton
+              handleClick={searchHandler}
+              passThrough={{ disabled: isSeachBtnDisabled }}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <ResetButton handleClick={resetHandler} />
+            <ResetButton
+              handleClick={resetHandler}
+              passThrough={{ disabled: isResetBtnDisabled }}
+            />
           </Grid>
         </Grid>
       </CardContent>
