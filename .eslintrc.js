@@ -1,5 +1,4 @@
 module.exports = {
-  extends: 'airbnb-base',
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -13,4 +12,5 @@ module.exports = {
   rules: {
     'class-methods-use-this': 'off',
   },
+  extends: 'airbnb-base',
 };

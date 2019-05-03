@@ -10,13 +10,23 @@ const port = config.get('PORT');
 app.use(bodyParser.json()); // parse json body for now
 
 // For version or ping response - health checks
-app.get('/version', (req, res) => res.json(packageJson.version));
+app.get('/version', (_, res) => res.json(packageJson.version));
 
 // For trips module
 app.use('/trips', trips);
 
-process.on('uncaughtException', () => {});
+process.on('uncaughtException', () => {
+  // log error and restart
+});
 
-process.on('unhandledRejection', () => {});
+process.on('unhandledRejection', () => {
+  // log error
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () =>
+  console.log(
+    `${packageJson.name} with version ${
+      packageJson.version
+    } app listening on port ${port}!`,
+  ),
+);
