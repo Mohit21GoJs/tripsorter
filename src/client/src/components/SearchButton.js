@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 function SearchButton() {
   return (
-    <Button variant="contained" color="primary">
+    <Button variant="contained" size="large" color="primary">
       <SearchIcon />
       Search
     </Button>
