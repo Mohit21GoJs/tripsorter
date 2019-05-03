@@ -4,11 +4,11 @@ export default class GraphEdge {
    * @param {GraphVertex} endVertex
    * @param {number} [weight=1]
    */
-  constructor(startVertex, endVertex, weight = 0) {
+  constructor(startVertex, endVertex, weight = 0, label) {
     this.startVertex = startVertex;
     this.endVertex = endVertex;
     this.weight = weight;
-    this.label = this.getKey();
+    this.label = label || this.getKey();
   }
 
   /**

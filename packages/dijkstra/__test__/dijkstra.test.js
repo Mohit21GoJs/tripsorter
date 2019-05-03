@@ -27,13 +27,14 @@ describe('dijkstra', () => {
     const edgeFG = new GraphEdge(vertexF, vertexG, 3);
     const edgeEG = new GraphEdge(vertexE, vertexG, 5);
 
-    const graph = new Graph(true);
+    let graph = new Graph(true);
     graph
       .addVertex(vertexH)
       .addEdge(edgeAB)
       .addEdge(edgeAE)
       .addEdge(edgeAC)
-      .addEdge(edgeBC)
+      .addEdge(edgeBC);
+    graph
       .addEdge(edgeBD)
       .addEdge(edgeEC)
       .addEdge(edgeED)
@@ -43,7 +44,11 @@ describe('dijkstra', () => {
       .addEdge(edgeFG)
       .addEdge(edgeEG);
 
-    const { distances, previousVertices } = dijkstra(graph, vertexA, vertexG);
+    const { distances, previousVertices } = dijkstra(
+      graph,
+      graph.getVertexByKey('A'),
+      vertexG,
+    );
 
     expect(distances).toEqual({
       H: Infinity,

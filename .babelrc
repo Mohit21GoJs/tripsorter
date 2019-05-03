@@ -1,12 +1,14 @@
 {
   "presets": ["@babel/preset-env"],
   "plugins": [
+    ["@babel/plugin-transform-runtime"],
     [
       "module-resolver",
       {
         "alias": {
           "client": "./src/client",
           "server": "./src/server",
+          "@modules/trips": "./src/server/modules/trips",
           "packages": "./packages",
           "root": "."
         }
