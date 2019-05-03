@@ -89,7 +89,8 @@ class App extends React.PureComponent {
       deals: [],
       currency: '',
       totalCost: '',
-    });x
+    });
+  x;
 
   checkSearchBtnDisabled = () =>
     !this.state.searchPreferences.arrivalCity ||
@@ -97,6 +98,9 @@ class App extends React.PureComponent {
     this.state.loadingDeals;
 
   checkResetBtnDisabled = () => this.state.loadingDeals;
+
+  navigateToGithub = () =>
+    window.open('https://github.com/Mohit21GoJs/tripsorter', '_blank'); 
 
   componentDidMount() {
     getData('trips/cities')
@@ -150,7 +154,7 @@ class App extends React.PureComponent {
       <div className={classes.root}>
         <AppBar
           appTitle="TripSorter"
-          navigateToGithub={() => (window.location = 'https://google.com')}
+          navigateToGithub={this.navigateToGithub}
         />
         <Grid className={classes.content} spacing={100} container>
           <Grid item xs={12} sm={4}>
