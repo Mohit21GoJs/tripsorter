@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import SelectBox from './SelectBox';
 import FilterCriteria from './FilterCriteria';
 import SearchButton from './SearchButton';
+import ResetButton from './ResetButton';
 
 const styles = _ => ({
   root: {
@@ -18,7 +19,21 @@ const styles = _ => ({
 });
 
 function SearchComponent(props) {
-  const { classes } = props;
+  const {
+    classes,
+    arrivalCities,
+    departureCities,
+    selectedArrivalCity,
+    selectedDepartureCity,
+    isQuickestSelected,
+    isCheapestSelected,
+    arrivalCityHandler,
+    departureCityHandler,
+    cheapestFilterHandler,
+    quickestFilterHandler,
+    searchHandler,
+    resetHandler,
+  } = props;
   return (
     <Card className={classes.root}>
       <CardHeader title="Search Options" />
@@ -29,9 +44,9 @@ function SearchComponent(props) {
               id="source"
               name="source"
               labelText="Select Source"
-              data={[{ value: 1, displayText: 21 }]}
-              value={1}
-              handleChange={() => alert('hello')}
+              data={departureCities}
+              value={selectedDepartureCity}
+              handleChange={departureCityHandler}
             />
           </Grid>
 
@@ -40,32 +55,32 @@ function SearchComponent(props) {
               id="destination"
               name="destination"
               labelText="Select Destination"
-              data={[{ value: 1, displayText: 21 }]}
-              value={1}
-              handleChange={() => alert('hello')}
+              data={arrivalCities}
+              value={selectedArrivalCity}
+              handleChange={arrivalCityHandler}
             />
           </Grid>
 
           <Grid item xs={12}>
             <FilterCriteria
-              checkedValue={1}
-              filterValues={[
-                {
-                  value: 1,
-                  displayText: 'Cheapest',
-                },
-                {
-                  value: 2,
-                  displayText: 'Fastest',
-                },
-              ]}
+              checked={isQuickestSelected}
+              filterLabel="Quickest"
+              handleFilterChange={quickestFilterHandler}
+            />
+            <FilterCriteria
+              checked={isCheapestSelected}
+              filterLabel="Cheapest"
+              handleFilterChange={cheapestFilterHandler}
             />
           </Grid>
         </Grid>
 
         <Grid container alignItems="center">
-          <Grid item xs={24} spacing={90}>
-            <SearchButton />
+          <Grid item xs={12} sm={6}>
+            <SearchButton handleClick={searchHandler} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <ResetButton handleClick={resetHandler} />
           </Grid>
         </Grid>
       </CardContent>

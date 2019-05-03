@@ -1,4 +1,4 @@
-import { isUndefined, get } from 'lodash';
+import { isUndefined, get, map, uniq, flow, sortBy } from 'lodash';
 import faresData from '@modules/trips/data/fares.json';
 import GraphVertex from 'packages/data-structures/graph/GraphVertex';
 import GraphEdge from 'packages/data-structures/graph/GraphEdge';
@@ -103,6 +103,36 @@ const SearchController = async (req, res, next) => {
     totalCost: path.val,
   });
   res.send({ ...responseData });
+  next();
+};
+
+// curried base function
+const getCitieFromDeals = typeOfCity => deals => map(deals, typeOfCity);
+
+const getDepartureCities = getCitieFromDeals('departure');
+
+const getArrivalCities = getCitieFromDeals('arrival');
+
+// composition of the applied functions
+const getUniqueDepatureCities = flow(
+  getDepartureCities,
+  uniq,
+  sortBy,
+);
+
+const getUniqueArrivalCities = flow(
+  getArrivalCities,
+  uniq,
+  sortBy,
+);
+
+export const CityLookupDataController = async (req, res, next) => {
+  const { deals } = faresData;
+
+  res.send({
+    arrivalCities: getUniqueArrivalCities(deals),
+    departureCities: getUniqueDepatureCities(deals),
+  });
   next();
 };
 

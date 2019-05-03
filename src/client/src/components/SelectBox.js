@@ -19,7 +19,7 @@ function SelectBox(props) {
       <Select
         autoWidth={false}
         value={value}
-        onChange={handleChange}
+        onChange={event => handleChange(event.target.value)}
         inputProps={{
           name,
           id,
