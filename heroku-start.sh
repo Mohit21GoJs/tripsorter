@@ -1,7 +1,7 @@
 #/bin/sh
 
-yarn install
-yarn global add nodemon
+# yarn install
+# yarn global add nodemon
 
 echo "===== Nodemon Installed ===="
-yarn run start-with-nodemon
+yarn start
