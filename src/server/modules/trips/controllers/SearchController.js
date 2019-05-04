@@ -4,7 +4,11 @@ import {
   calculateTotalTimeForDeal,
   calculateTotalCostForDeal,
 } from '@modules/trips/utils/deal';
-import { getQuickestDeals, getCheapestDeals } from '../helpers/Search';
+import BaseController from '@modules/trips/controllers/BaseController';
+import {
+  getQuickestDeals,
+  getCheapestDeals,
+} from '@modules/trips/helpers/Search';
 
 // @TODO: case when cost is same so second fallback to time - think
 // @TODO:  use async await
@@ -24,7 +28,7 @@ const mapDealsResponse = ({ deals, currency, totalCost, totalTime }) => ({
  * @param {Object} res - Eventemitter res stream
  * @param {Function} next - next callback in middleware chain
  */
-const SearchController = async (req, res, next) => {
+const SearchController = BaseController(async (req, res, next) => {
   try {
     const { source, destination, quickest, cheapest } = req.body;
     const { deals, currency } = faresData;
@@ -54,6 +58,6 @@ const SearchController = async (req, res, next) => {
     });
   }
   next();
-};
+}); 
 
 export default SearchController;

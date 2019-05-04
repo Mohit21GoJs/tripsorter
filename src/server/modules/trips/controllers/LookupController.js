@@ -3,6 +3,7 @@ import {
   getUniqueArrivalCities,
   getUniqueDepatureCities,
 } from '@modules/trips/helpers/City';
+import BaseController from '@modules/trips/controllers/BaseController';
 
 /**
  * City Lookup handler
@@ -10,15 +11,14 @@ import {
  * @param {Object} res - Eventemitter res stream
  * @param {Function} next - next callback in middleware chain
  */
-export const CityLookup = async (_, res, next) => {
-  const { deals } = faresData;
 
-  res.send({
+export const CityLookup = BaseController(async () => {
+  const { deals } = faresData;
+  return {
     arrivalCities: getUniqueArrivalCities(deals),
     departureCities: getUniqueDepatureCities(deals),
-  });
-  next();
-};
+  };
+});
 
 export default {
   CityLookup,
