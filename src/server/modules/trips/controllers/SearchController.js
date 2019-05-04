@@ -28,36 +28,29 @@ const mapDealsResponse = ({ deals, currency, totalCost, totalTime }) => ({
  * @param {Object} res - Eventemitter res stream
  * @param {Function} next - next callback in middleware chain
  */
-const SearchController = BaseController(async (req, res, next) => {
-  try {
-    const { source, destination, quickest, cheapest } = req.body;
-    const { deals, currency } = faresData;
-    let responseData = {};
-    if (cheapest) {
-      const cheapestDealData = getCheapestDeals({
-        deals,
-        currency,
-        source,
-        destination,
-      });
-      responseData = mapDealsResponse(cheapestDealData);
-    } else if (quickest) {
-      const quickestDealData = getQuickestDeals({
-        deals,
-        currency,
-        source,
-        destination,
-      });
-      responseData = mapDealsResponse(quickestDealData);
-    }
-    res.send(responseData);
-  } catch (e) {
-    res.status(500).send({
-      error: 'Something went wrong',
-      err: e.message,
+// eslint-disable-next-line arrow-parens
+const SearchController = BaseController(async req => {
+  const { source, destination, quickest, cheapest } = req.body;
+  const { deals, currency } = faresData;
+  let responseData = {};
+  if (cheapest) {
+    const cheapestDealData = getCheapestDeals({
+      deals,
+      currency,
+      source,
+      destination,
     });
+    responseData = mapDealsResponse(cheapestDealData);
+  } else if (quickest) {
+    const quickestDealData = getQuickestDeals({
+      deals,
+      currency,
+      source,
+      destination,
+    });
+    responseData = mapDealsResponse(quickestDealData);
   }
-  next();
-}); 
+  return responseData;
+});
 
 export default SearchController;
