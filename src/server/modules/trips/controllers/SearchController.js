@@ -108,11 +108,25 @@ export const makeGraphFromMinFares = minFaresData => {
   return graph;
 };
 
+const calculateTotalTimeForDeal = deals =>
+  Array.isArray(deals) &&
+  deals.reduce(
+    (acc, val) => acc + calculateTimeInMinutes(val.duration.h, val.duration.m),
+    0,
+  );
+
+const calculateTotalCostForDeal = deals =>
+  Array.isArray(deals) &&
+  deals.reduce(
+    (acc, val) => acc + calculateCostWithDiscount(val.cost, val.discount),
+    0,
+  );
+
 const mapDealsResponse = ({ deals, currency, totalCost, totalTime }) => ({
   currency,
   deals,
-  totalCost,
-  totalTime,
+  totalCost: totalCost || calculateTotalCostForDeal(deals),
+  totalTime: totalTime || calculateTotalTimeForDeal(deals),
 });
 /**
  *
@@ -134,7 +148,6 @@ const SearchController = async (req, res, next) => {
       currency,
       deals: dealData,
       totalCost: path.val,
-      totalTime: 0,
     });
     res.send({ ...responseData });
   } else if (quickest) {
@@ -147,8 +160,7 @@ const SearchController = async (req, res, next) => {
     const responseData = mapDealsResponse({
       currency,
       deals: dealData,
-      totalCost: path.val,
-      totalTime: 0,
+      totalTime: path.val,
     });
     res.send({ ...responseData });
   }

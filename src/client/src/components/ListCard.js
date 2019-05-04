@@ -21,13 +21,6 @@ const styles = theme => ({
   // },
 });
 
-const calculateTotalMinutes = memoize((deals = []) =>
-  deals.reduce(
-    (acc, val) => acc + Number(val.duration.h) * 60 + Number(val.duration.m),
-    0,
-  ),
-);
-
 const timeConvert = memoize(timeInMinutes => {
   var num = timeInMinutes;
   var hours = num / 60;
@@ -41,8 +34,15 @@ const timeConvert = memoize(timeInMinutes => {
 });
 
 function ListCard(props) {
-  const { classes, deals, currency, totalCost, isLoadingDeals } = props;
-  const totalTime = timeConvert(calculateTotalMinutes(deals));
+  const {
+    classes,
+    deals,
+    currency,
+    totalCost,
+    totalTimeInMinutes,
+    isLoadingDeals,
+  } = props;
+  const totalTime = timeConvert(totalTimeInMinutes);
   return (
     <Card>
       <CardHeader title="Best Deal(s)" />

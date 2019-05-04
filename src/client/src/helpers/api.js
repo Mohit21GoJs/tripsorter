@@ -1,4 +1,5 @@
-const apiUrl = 'http://localhost:2030';
+import * as envs from '../env.js';
+const apiUrl = envs.APP_API_URL;
 
 const appendApiUrl = url => `${apiUrl}/${url}`;
 export function postData(url = ``, data = {}) {

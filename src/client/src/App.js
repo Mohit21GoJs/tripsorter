@@ -72,11 +72,12 @@ class App extends React.PureComponent {
     this.setState({ loadingDeals: true });
     postData('trips/search', reqBody).then(data => {
       if (data) {
-        const { deals, currency, totalCost } = data;
+        const { deals, currency, totalCost, totalTime } = data;
         this.setState({
           deals,
           currency,
           totalCost,
+          totalTime,
           loadingDeals: false,
         });
       }
@@ -140,6 +141,7 @@ class App extends React.PureComponent {
         cheapest: isCheapestSelected,
         quickest: isQuickestSelected,
       },
+      totalTime,
     } = this.state;
     const filteredArrivalCities = this.filterCities(
       arrivalCities,
@@ -188,6 +190,7 @@ class App extends React.PureComponent {
               isLoadingDeals={this.state.loadingDeals}
               deals={deals}
               totalCost={totalCost}
+              totalTimeInMinutes={totalTime}
               currency={currency}
             />
           </Grid>
