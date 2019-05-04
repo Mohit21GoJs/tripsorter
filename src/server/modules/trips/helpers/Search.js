@@ -9,6 +9,8 @@ import {
 import { makeGraphFromMinFares } from '@modules/trips/utils/graph';
 import { normalizeDeals } from '@modules/trips/utils/deal';
 
+const makeDealKeyForGraphNodes = deal => `${deal.departure}_${deal.arrival}`;
+
 export const extractMinFareDeals = deals =>
   // eslint-disable-next-line implicit-arrow-linebreak
   Array.isArray(deals) &&
@@ -16,7 +18,7 @@ export const extractMinFareDeals = deals =>
     const accCopy = { ...acc };
     const { departure, arrival, transport, cost, discount } = val;
     const finalCost = calculateCostWithDiscount(cost, discount);
-    const key = `${departure}_${arrival}`;
+    const key = makeDealKeyForGraphNodes(val);
     const existingCost = get(accCopy, [key, 'cost']);
     if (isUndefined(existingCost) || existingCost > finalCost) {
       accCopy[key] = {
@@ -41,7 +43,7 @@ export const extractQuickestDeals = deals =>
       duration: { h: hours, m: minutes },
     } = val;
     const finalCost = calculateTimeInMinutes(hours, minutes);
-    const key = `${departure}_${arrival}`;
+    const key = makeDealKeyForGraphNodes(val);
     const existingCost = get(accCopy, [key, 'cost']);
     if (isUndefined(existingCost) || existingCost > finalCost) {
       accCopy[key] = {
