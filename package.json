@@ -5,7 +5,7 @@
   "repository": "git@github.com:Mohit21GoJs/tripsorter.git",
   "author": "Mohit Yadav <mohit.yadav@xebia.com>",
   "engines": {
-    "node": "10.x"
+    "node": ">=10.x"
   },
   "license": "MIT",
   "scripts": {
