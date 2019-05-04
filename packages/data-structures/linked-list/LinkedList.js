@@ -37,7 +37,6 @@ export default class LinkedList {
    * @return {LinkedList}
    */
   append(value) {
-    console.log('value is', value);
     const newNode = new LinkedListNode(value);
     // If there is no head yet let's make new node a head.
     if (!this.head) {
