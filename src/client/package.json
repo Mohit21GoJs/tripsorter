@@ -13,8 +13,9 @@
   },
   "scripts": {
     "set-env-local": "APP_API_URL=http://localhost:2030 sh set-env.sh",
-    "set-env-prod": "APP_API_URL=http://localhost:2030 sh set-env.sh",
+    "set-env-prod": "APP_API_URL=http://ec2-3-84-192-23.compute-1.amazonaws.com:2030 sh set-env.sh",
     "start": "yarn run set-env-local && react-scripts start",
+    "start-aws": "yarn run set-env-prod && react-scripts start",
     "build": "yarn run set-env-prod && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

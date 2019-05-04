@@ -47,22 +47,25 @@ function ListCard(props) {
     <Card>
       <CardHeader title="Best Deal(s)" />
       <CardContent>
-        {isLoadingDeals && <CircularProgress className={classes.progress} />}
-        <List dense className={classes.root}>
-          {Array.isArray(deals) && deals.length ? (
-            <React.Fragment>
-              {deals.map(deal => (
-                <DealDetailBox deal={deal} currency={currency} />
-              ))}
-              <DealTotalBox
-                totalCost={totalCost}
-                totalHours={totalTime.h}
-                totalMinutes={totalTime.m}
-                currency={currency}
-              />
-            </React.Fragment>
-          ) : null}
-        </List>
+        {isLoadingDeals ? (
+          <CircularProgress className={classes.progress} />
+        ) : (
+          <List dense className={classes.root}>
+            {Array.isArray(deals) && deals.length ? (
+              <React.Fragment>
+                {deals.map(deal => (
+                  <DealDetailBox deal={deal} currency={currency} />
+                ))}
+                <DealTotalBox
+                  totalCost={totalCost}
+                  totalHours={totalTime.h}
+                  totalMinutes={totalTime.m}
+                  currency={currency}
+                />
+              </React.Fragment>
+            ) : null}
+          </List>
+        )}
       </CardContent>
     </Card>
   );

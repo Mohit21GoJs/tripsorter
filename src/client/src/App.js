@@ -69,7 +69,12 @@ class App extends React.PureComponent {
       cheapest: searchPreferences.cheapest,
       quickest: searchPreferences.quickest,
     };
-    this.setState({ loadingDeals: true });
+    this.setState({
+      loadingDeals: true,
+      deals: [],
+      totalCost: '',
+      totalTime: '',
+    });
     postData('trips/search', reqBody).then(data => {
       if (data) {
         const { deals, currency, totalCost, totalTime } = data;
