@@ -34,7 +34,7 @@ export function getData(url = ``) {
   })
     .then(response => {
       debugger;
-      console.log('got response', response);
+      // console.log('got response', response);
       if (response.ok) {
         return response.json();
       }
