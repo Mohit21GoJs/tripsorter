@@ -12,7 +12,7 @@ import BaseController from '@modules/trips/controllers/BaseController';
  * @param {Function} next - next callback in middleware chain
  */
 
-export const CityLookup = BaseController(async () => {
+export const CityLookup = BaseController(() => {
   const { deals } = faresData;
   return {
     arrivalCities: getUniqueArrivalCities(deals),

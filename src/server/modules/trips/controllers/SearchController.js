@@ -29,7 +29,7 @@ const mapDealsResponse = ({ deals, currency, totalCost, totalTime }) => ({
  * @param {Function} next - next callback in middleware chain
  */
 // eslint-disable-next-line arrow-parens
-const SearchController = BaseController(async req => {
+const SearchController = BaseController(req => {
   const { source, destination, quickest, cheapest } = req.body;
   const { deals, currency } = faresData;
   let responseData = {};
