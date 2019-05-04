@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
+import responseTime from 'response-time';
 import config from 'config';
 import packageJson from 'root/package.json';
 import trips from 'server/modules/trips/route';
@@ -15,6 +16,7 @@ app.use(bodyParser.json()); // parse json body for now
 app.use(cors()); // since client and server run on separate port or probably separate domains
 app.use(compression());
 app.use(helmet());
+app.use(responseTime());
 // For version or ping response - health checks
 app.get('/version', (_, res) => res.json(packageJson.version));
 
