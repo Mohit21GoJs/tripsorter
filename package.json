@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server/app.js",
-    "build": "babel src -d dist",
+    "build": "babel --ignore='node_modules' src/server -d dist",
     "start-with-nodemon": "nodemon --exec babel-node --ignore='node_modules' -- ./src/server/app.js",
     "test": "jest"
   },
