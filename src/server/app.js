@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import compression from 'compression';
+import helmet from 'helmet';
 import cors from 'cors';
 import config from 'config';
 import packageJson from 'root/package.json';
@@ -11,7 +13,8 @@ const port = config.get('PORT');
 app.use(bodyParser.json()); // parse json body for now
 // @TODO: whitelist only our client and enable csrf protection for POST/PUT
 app.use(cors()); // since client and server run on separate port or probably separate domains
-
+app.use(compression());
+app.use(helmet());
 // For version or ping response - health checks
 app.get('/version', (_, res) => res.json(packageJson.version));
 
