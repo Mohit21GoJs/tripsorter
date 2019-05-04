@@ -18,8 +18,8 @@ app.get('/version', (_, res) => res.json(packageJson.version));
 // For trips module
 app.use('/trips', trips);
 
-process.on('uncaughtException', () => {
-  // log error and restart
+process.on('uncaughtException', err => {
+  console.error('error is', err);
 });
 
 process.on('unhandledRejection', () => {
