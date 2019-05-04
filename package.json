@@ -4,6 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:Mohit21GoJs/tripsorter.git",
   "author": "Mohit Yadav <mohit.yadav@xebia.com>",
+  "engines": {
+    "node": "10.x"
+  },
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server/app.js",
