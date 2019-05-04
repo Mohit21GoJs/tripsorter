@@ -1,16 +1,10 @@
+/* eslint-disable object-curly-newline */
 import faresData from '@modules/trips/data/fares.json';
-import dijkstra from 'packages/dijkstra/dijkstra';
-import {
-  extractMinFareDeals,
-  extractQuickestDeals,
-  dealsFilter,
-} from '@modules/trips/helpers/Search';
 import {
   calculateTotalTimeForDeal,
   calculateTotalCostForDeal,
-  normalizeDeals,
 } from '@modules/trips/utils/deal';
-import { makeGraphFromMinFares } from '@modules/trips/utils/graph';
+import { getQuickestDeals, getCheapestDeals } from '../helpers/Search';
 
 // @TODO: case when cost is same so second fallback to time - think
 // @TODO:  use async await
@@ -34,33 +28,25 @@ const SearchController = async (req, res, next) => {
   try {
     const { source, destination, quickest, cheapest } = req.body;
     const { deals, currency } = faresData;
+    let responseData = {};
     if (cheapest) {
-      const minFareDeals = extractMinFareDeals(deals);
-      const graph = makeGraphFromMinFares(minFareDeals);
-      const { distances } = dijkstra(graph, graph.getVertexByKey(source));
-      const path = distances[destination];
-      const normalizedDeals = normalizeDeals(deals);
-      const dealData = dealsFilter(path.edges, normalizedDeals);
-      const responseData = mapDealsResponse({
+      const cheapestDealData = getCheapestDeals({
+        deals,
         currency,
-        deals: dealData,
-        totalCost: path.val,
+        source,
+        destination,
       });
-      res.send({ ...responseData });
+      responseData = mapDealsResponse(cheapestDealData);
     } else if (quickest) {
-      const minFareDeals = extractQuickestDeals(deals);
-      const graph = makeGraphFromMinFares(minFareDeals);
-      const { distances } = dijkstra(graph, graph.getVertexByKey(source));
-      const path = distances[destination];
-      const normalizedDeals = normalizeDeals(deals);
-      const dealData = dealsFilter(path.edges, normalizedDeals);
-      const responseData = mapDealsResponse({
+      const quickestDealData = getQuickestDeals({
+        deals,
         currency,
-        deals: dealData,
-        totalTime: path.val,
+        source,
+        destination,
       });
-      res.send({ ...responseData });
+      responseData = mapDealsResponse(quickestDealData);
     }
+    res.send(responseData);
   } catch (e) {
     res.status(500).send({
       error: 'Something went wrong',

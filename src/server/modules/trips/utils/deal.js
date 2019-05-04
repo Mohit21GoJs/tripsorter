@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import {
   calculateCostWithDiscount,
   calculateTimeInMinutes,
@@ -17,6 +18,7 @@ export const makeUniqueDealKey = deal =>
  * @returns {Object}
  */
 export const normalizeDeals = deals =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   Array.isArray(deals) &&
   deals.reduce(
     (acc, val) => ({
@@ -34,6 +36,7 @@ export const normalizeDeals = deals =>
  * @returns {Object}
  */
 export const calculateTotalTimeForDeal = deals =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   Array.isArray(deals) &&
   deals.reduce(
     (acc, val) => acc + calculateTimeInMinutes(val.duration.h, val.duration.m),
@@ -46,6 +49,7 @@ export const calculateTotalTimeForDeal = deals =>
  * @returns {Object}
  */
 export const calculateTotalCostForDeal = deals =>
+  // eslint-disable-next-line implicit-arrow-linebreak
   Array.isArray(deals) &&
   deals.reduce(
     (acc, val) => acc + calculateCostWithDiscount(val.cost, val.discount),
