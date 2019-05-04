@@ -73,6 +73,11 @@ function ListCard(props) {
 
 ListCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  deals: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currency: PropTypes.string.isRequired,
+  totalCost: PropTypes.number.isRequired,
+  totalTimeInMinutes: PropTypes.number.isRequired,
+  isLoadingDeals: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(ListCard);

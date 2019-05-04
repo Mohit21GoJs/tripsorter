@@ -1,5 +1,5 @@
 import React from 'react';
-// import FormGroup from '@material-ui/core/FormGroup';
+import PropTypes from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -17,5 +17,11 @@ function FilterCriteria(props) {
     />
   );
 }
+
+FilterCriteria.propTypes = {
+  filterLabel: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
+};
 
 export default FilterCriteria;

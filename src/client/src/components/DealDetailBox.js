@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles } from '@material-ui/core/styles';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -49,5 +50,11 @@ function DealDetailBox(props) {
     </ListItem>
   );
 }
+
+DealDetailBox.propTypes = {
+  deal: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  currency: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(DealDetailBox);

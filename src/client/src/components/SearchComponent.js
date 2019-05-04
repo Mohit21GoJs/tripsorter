@@ -1,9 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import SelectBox from './SelectBox';
 import FilterCriteria from './FilterCriteria';
 import SearchButton from './SearchButton';
@@ -14,7 +16,10 @@ const styles = _ => ({
     padding: '2vh',
   },
   searchDropDowns: {
-    minWidth: '20px',
+    minWidth: 20,
+  },
+  btnSeparator: {
+    height: 10,
   },
 });
 
@@ -78,13 +83,17 @@ function SearchComponent(props) {
         </Grid>
 
         <Grid container alignItems="center">
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} md={6}>
             <SearchButton
               handleClick={searchHandler}
               passThrough={{ disabled: isSeachBtnDisabled }}
             />
+            <Hidden mdUp>
+              <div className={classes.btnSeparator} />
+            </Hidden>
           </Grid>
-          <Grid item xs={12} sm={6}>
+
+          <Grid item xs={12} md={6}>
             <ResetButton
               handleClick={resetHandler}
               passThrough={{ disabled: isResetBtnDisabled }}
@@ -95,5 +104,23 @@ function SearchComponent(props) {
     </Card>
   );
 }
+
+SearchComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  arrivalCities: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  departureCities: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  selectedArrivalCity: PropTypes.string.isRequired,
+  selectedDepartureCity: PropTypes.string.isRequired,
+  isQuickestSelected: PropTypes.bool.isRequired,
+  isCheapestSelected: PropTypes.bool.isRequired,
+  arrivalCityHandler: PropTypes.func.isRequired,
+  departureCityHandler: PropTypes.func.isRequired,
+  cheapestFilterHandler: PropTypes.func.isRequired,
+  quickestFilterHandler: PropTypes.func.isRequired,
+  searchHandler: PropTypes.func.isRequired,
+  resetHandler: PropTypes.func.isRequired,
+  isSeachBtnDisabled: PropTypes.bool.isRequired,
+  isResetBtnDisabled: PropTypes.bool.isRequired,
+};
 
 export default withStyles(styles)(SearchComponent);

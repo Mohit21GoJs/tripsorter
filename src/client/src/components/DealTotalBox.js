@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles } from '@material-ui/core/styles';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -36,5 +37,13 @@ function DealTotalBox(props) {
     </ListItem>
   );
 }
+
+DealTotalBox.propTypes = {
+  totalMinutes: PropTypes.number.isRequired,
+  totalHours: PropTypes.number.isRequired,
+  totalCost: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
+  currency: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(DealTotalBox);
