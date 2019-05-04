@@ -1,5 +1,9 @@
 # tripsorter
 
+- For Unix/OSX
+
+* sh start-app.sh
+
 - Instructions
 
 * Run `yarn install` on root folder
