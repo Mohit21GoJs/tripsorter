@@ -90,7 +90,6 @@ class App extends React.PureComponent {
       currency: '',
       totalCost: '',
     });
-  x;
 
   checkSearchBtnDisabled = () =>
     !this.state.searchPreferences.arrivalCity ||
@@ -100,7 +99,7 @@ class App extends React.PureComponent {
   checkResetBtnDisabled = () => this.state.loadingDeals;
 
   navigateToGithub = () =>
-    window.open('https://github.com/Mohit21GoJs/tripsorter', '_blank'); 
+    window.open('https://github.com/Mohit21GoJs/tripsorter', '_blank');
 
   componentDidMount() {
     getData('trips/cities')
