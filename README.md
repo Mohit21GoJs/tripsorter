@@ -4,11 +4,13 @@
 
 * sh start-app.sh
 
-- Instructions
+## For Other systems
 
-* Run `yarn install` on root folder
-* Run `yarn run start-with-nodemon` for running server
-* Server will run on port 2030
+## Instructions
+
+- Run `yarn install` on root folder
+- Run `yarn run start-with-nodemon` for running server
+- Server will run on port 2030
 
 For Client
 
