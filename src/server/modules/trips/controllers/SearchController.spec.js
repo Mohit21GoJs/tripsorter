@@ -4001,3 +4001,298 @@ describe('dealsFilter', () => {
     expect(SearchCtrl.dealsFilter(undefined)).toEqual(false);
   });
 });
+
+describe('extractQuickestDeals', () => {
+  xit('should extract min data', () => {
+    expect(SearchCtrl.extractQuickestDeals(faresData.deals)).toEqual({
+      Amsterdam_Brussels: {
+        arrival: 'Brussels',
+        cost: 40,
+        departure: 'Amsterdam',
+        reference: 'BAB0545',
+      },
+      Amsterdam_London: {
+        arrival: 'London',
+        cost: 20,
+        departure: 'Amsterdam',
+        reference: 'BAL0545',
+      },
+      Amsterdam_Warsaw: {
+        arrival: 'Warsaw',
+        cost: 30,
+        departure: 'Amsterdam',
+        reference: 'BAW0515',
+      },
+      Athens_Budapest: {
+        arrival: 'Budapest',
+        cost: 20,
+        departure: 'Athens',
+        reference: 'BAB0500',
+      },
+      Athens_Istanbul: {
+        arrival: 'Istanbul',
+        cost: 30,
+        departure: 'Athens',
+        reference: 'BAI0530',
+      },
+      Athens_Rome: {
+        arrival: 'Rome',
+        cost: 40,
+        departure: 'Athens',
+        reference: 'BAR0600',
+      },
+      Brussels_Amsterdam: {
+        arrival: 'Amsterdam',
+        cost: 20,
+        departure: 'Brussels',
+        reference: 'BBA0515',
+      },
+      Brussels_Geneva: {
+        arrival: 'Geneva',
+        cost: 40,
+        departure: 'Brussels',
+        reference: 'BBG0715',
+      },
+      Brussels_Paris: {
+        arrival: 'Paris',
+        cost: 40,
+        departure: 'Brussels',
+        reference: 'BBP0545',
+      },
+      Brussels_Prague: {
+        arrival: 'Prague',
+        cost: 20,
+        departure: 'Brussels',
+        reference: 'BBP0545',
+      },
+      Budapest_Athens: {
+        arrival: 'Athens',
+        cost: 20,
+        departure: 'Budapest',
+        reference: 'BBA0745',
+      },
+      Budapest_Geneva: {
+        arrival: 'Geneva',
+        cost: 20,
+        departure: 'Budapest',
+        reference: 'BBG0500',
+      },
+      Budapest_Kiev: {
+        arrival: 'Kiev',
+        cost: 30,
+        departure: 'Budapest',
+        reference: 'BBK0515',
+      },
+      Budapest_Prague: {
+        arrival: 'Prague',
+        cost: 40,
+        departure: 'Budapest',
+        reference: 'BBP0615',
+      },
+      Geneva_Brussels: {
+        arrival: 'Brussels',
+        cost: 40,
+        departure: 'Geneva',
+        reference: 'BGB0515',
+      },
+      Geneva_Budapest: {
+        arrival: 'Budapest',
+        cost: 40,
+        departure: 'Geneva',
+        reference: 'BGB0530',
+      },
+      Geneva_Madrid: {
+        arrival: 'Madrid',
+        cost: 40,
+        departure: 'Geneva',
+        reference: 'BGM0645',
+      },
+      Geneva_Rome: {
+        arrival: 'Rome',
+        cost: 30,
+        departure: 'Geneva',
+        reference: 'BGR0630',
+      },
+      Istanbul_Athens: {
+        arrival: 'Athens',
+        cost: 20,
+        departure: 'Istanbul',
+        reference: 'BIA0515',
+      },
+      Istanbul_Kiev: {
+        arrival: 'Kiev',
+        cost: 30,
+        departure: 'Istanbul',
+        reference: 'BIK0530',
+      },
+      Kiev_Budapest: {
+        arrival: 'Budapest',
+        cost: 20,
+        departure: 'Kiev',
+        reference: 'BKB0600',
+      },
+      Kiev_Istanbul: {
+        arrival: 'Istanbul',
+        cost: 20,
+        departure: 'Kiev',
+        reference: 'BKI0600',
+      },
+      Kiev_Moscow: {
+        arrival: 'Moscow',
+        cost: 40,
+        departure: 'Kiev',
+        reference: 'BKM0500',
+      },
+      Lisbon_Madrid: {
+        arrival: 'Madrid',
+        cost: 40,
+        departure: 'Lisbon',
+        reference: 'BLM0745',
+      },
+      Lisbon_Rome: {
+        arrival: 'Rome',
+        cost: 30,
+        departure: 'Lisbon',
+        reference: 'BLR0730',
+      },
+      London_Amsterdam: {
+        arrival: 'Amsterdam',
+        cost: 30,
+        departure: 'London',
+        reference: 'BLA0745',
+      },
+      London_Paris: {
+        arrival: 'Paris',
+        cost: 20,
+        departure: 'London',
+        reference: 'BLP0530',
+      },
+      Madrid_Geneva: {
+        arrival: 'Geneva',
+        cost: 20,
+        departure: 'Madrid',
+        reference: 'BMG0730',
+      },
+      Madrid_Lisbon: {
+        arrival: 'Lisbon',
+        cost: 30,
+        departure: 'Madrid',
+        reference: 'BML0500',
+      },
+      Madrid_Paris: {
+        arrival: 'Paris',
+        cost: 20,
+        departure: 'Madrid',
+        reference: 'BMP0530',
+      },
+      Moscow_Kiev: {
+        arrival: 'Kiev',
+        cost: 20,
+        departure: 'Moscow',
+        reference: 'BMK0700',
+      },
+      Moscow_Prague: {
+        arrival: 'Prague',
+        cost: 30,
+        departure: 'Moscow',
+        reference: 'BMP0500',
+      },
+      Moscow_Stockholm: {
+        arrival: 'Stockholm',
+        cost: 30,
+        departure: 'Moscow',
+        reference: 'BMS0600',
+      },
+      Paris_Brussels: {
+        arrival: 'Brussels',
+        cost: 30,
+        departure: 'Paris',
+        reference: 'BPB0630',
+      },
+      Paris_London: {
+        arrival: 'London',
+        cost: 20,
+        departure: 'Paris',
+        reference: 'BPL0615',
+      },
+      Paris_Madrid: {
+        arrival: 'Madrid',
+        cost: 30,
+        departure: 'Paris',
+        reference: 'BPM0645',
+      },
+      Prague_Brussels: {
+        arrival: 'Brussels',
+        cost: 30,
+        departure: 'Prague',
+        reference: 'BPB0515',
+      },
+      Prague_Budapest: {
+        arrival: 'Budapest',
+        cost: 30,
+        departure: 'Prague',
+        reference: 'BPB0700',
+      },
+      Prague_Moscow: {
+        arrival: 'Moscow',
+        cost: 30,
+        departure: 'Prague',
+        reference: 'BPM0500',
+      },
+      Prague_Warsaw: {
+        arrival: 'Warsaw',
+        cost: 30,
+        departure: 'Prague',
+        reference: 'BPW0630',
+      },
+      Rome_Athens: {
+        arrival: 'Athens',
+        cost: 40,
+        departure: 'Rome',
+        reference: 'BRA0745',
+      },
+      Rome_Geneva: {
+        arrival: 'Geneva',
+        cost: 20,
+        departure: 'Rome',
+        reference: 'BRG0700',
+      },
+      Rome_Lisbon: {
+        arrival: 'Lisbon',
+        cost: 20,
+        departure: 'Rome',
+        reference: 'BRL0530',
+      },
+      Stockholm_Moscow: {
+        arrival: 'Moscow',
+        cost: 30,
+        departure: 'Stockholm',
+        reference: 'BSM0530',
+      },
+      Stockholm_Warsaw: {
+        arrival: 'Warsaw',
+        cost: 40,
+        departure: 'Stockholm',
+        reference: 'BSW0545',
+      },
+      Warsaw_Amsterdam: {
+        arrival: 'Amsterdam',
+        cost: 40,
+        departure: 'Warsaw',
+        reference: 'BWA0545',
+      },
+      Warsaw_Prague: {
+        arrival: 'Prague',
+        cost: 40,
+        departure: 'Warsaw',
+        reference: 'BWP0615',
+      },
+      Warsaw_Stockholm: {
+        arrival: 'Stockholm',
+        cost: 20,
+        departure: 'Warsaw',
+        reference: 'BWS0515',
+      },
+    });
+  });
+});

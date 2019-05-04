@@ -33,6 +33,32 @@ export const extractMinFareDeals = deals =>
     return accCopy;
   }, {});
 
+const calculateTimeInMinutes = (hours, minutes) =>
+  Number(hours) * 60 + Number(minutes);
+
+export const extractQuickestDeals = deals =>
+  Array.isArray(deals) &&
+  deals.reduce((acc, val) => {
+    const accCopy = { ...acc };
+    const {
+      departure,
+      arrival,
+      duration: { h: hours, m: minutes },
+    } = val;
+    const finalCost = calculateTimeInMinutes(hours, minutes);
+    const key = `${departure}_${arrival}`;
+    const existingCost = get(accCopy, [key, 'cost']);
+    if (isUndefined(existingCost) || existingCost > finalCost) {
+      accCopy[key] = {
+        cost: finalCost,
+        departure: val.departure,
+        arrival: val.arrival,
+        reference: val.reference,
+      };
+    }
+    return accCopy;
+  }, {});
+
 export const normalizeDeals = deals =>
   Array.isArray(deals) &&
   deals.reduce(
@@ -43,7 +69,7 @@ export const normalizeDeals = deals =>
       },
     }),
     {},
-  );  
+  );
 
 export const dealsFilter = (dealReferences, normalizedDeals) =>
   Array.isArray(dealReferences) &&
@@ -90,20 +116,36 @@ const mapDealsResponse = ({ deals, currency, totalCost }) => ({
  * @param {Function} next - next callback in middleware chain
  */
 const SearchController = async (req, res, next) => {
-  const { source, destination } = req.body;
+  const { source, destination, quickest, cheapest } = req.body;
   const { deals, currency } = faresData;
-  const minFareDeals = extractMinFareDeals(deals);
-  const graph = makeGraphFromMinFares(minFareDeals);
-  const { distances } = dijkstra(graph, graph.getVertexByKey(source));
-  const path = distances[destination];
-  const normalizedDeals = normalizeDeals(deals);
-  const dealData = dealsFilter(path.edges, normalizedDeals);
-  const responseData = mapDealsResponse({
-    currency,
-    deals: dealData,
-    totalCost: path.val,
-  });
-  res.send({ ...responseData });
+  if (cheapest) {
+    const minFareDeals = extractMinFareDeals(deals);
+    const graph = makeGraphFromMinFares(minFareDeals);
+    const { distances } = dijkstra(graph, graph.getVertexByKey(source));
+    const path = distances[destination];
+    const normalizedDeals = normalizeDeals(deals);
+    const dealData = dealsFilter(path.edges, normalizedDeals);
+    const responseData = mapDealsResponse({
+      currency,
+      deals: dealData,
+      totalCost: path.val,
+    });
+    res.send({ ...responseData });
+  } else if (quickest) {
+    const minFareDeals = extractQuickestDeals(deals);
+    const graph = makeGraphFromMinFares(minFareDeals);
+    const { distances } = dijkstra(graph, graph.getVertexByKey(source));
+    const path = distances[destination];
+    const normalizedDeals = normalizeDeals(deals);
+    const dealData = dealsFilter(path.edges, normalizedDeals);
+    const responseData = mapDealsResponse({
+      currency,
+      deals: dealData,
+      totalCost: path.val,
+    });
+    res.send({ ...responseData });
+  }
+
   next();
 };
 
