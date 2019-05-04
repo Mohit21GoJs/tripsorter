@@ -1,1 +1,1 @@
-web: yarn run start-with-nodemon
+web: sh ./heroku-start.sh
