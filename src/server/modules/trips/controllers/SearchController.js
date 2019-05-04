@@ -18,7 +18,7 @@ export const extractMinFareDeals = deals =>
   Array.isArray(deals) &&
   deals.reduce((acc, val) => {
     const accCopy = { ...acc };
-    const { departure, arrival, transport, cost, discount, reference } = val;
+    const { departure, arrival, transport, cost, discount } = val;
     const finalCost = calculateCostWithDiscount(cost, discount);
     const key = `${departure}_${arrival}`;
     const existingCost = get(accCopy, [key, 'cost']);
@@ -28,7 +28,6 @@ export const extractMinFareDeals = deals =>
         departure,
         arrival,
         transport,
-        reference,
       };
     }
     return accCopy;
@@ -48,7 +47,6 @@ export const extractQuickestDeals = deals =>
       departure,
       arrival,
       transport,
-      reference,
       duration: { h: hours, m: minutes },
     } = val;
     const finalCost = calculateTimeInMinutes(hours, minutes);
@@ -60,7 +58,6 @@ export const extractQuickestDeals = deals =>
         departure,
         arrival,
         transport,
-        reference,
       };
     }
     return accCopy;
