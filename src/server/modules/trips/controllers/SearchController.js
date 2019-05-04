@@ -18,16 +18,17 @@ export const extractMinFareDeals = deals =>
   Array.isArray(deals) &&
   deals.reduce((acc, val) => {
     const accCopy = { ...acc };
-    const { departure, arrival, cost, discount } = val;
+    const { departure, arrival, transport, cost, discount, reference } = val;
     const finalCost = calculateCostWithDiscount(cost, discount);
     const key = `${departure}_${arrival}`;
     const existingCost = get(accCopy, [key, 'cost']);
     if (isUndefined(existingCost) || existingCost > finalCost) {
       accCopy[key] = {
         cost: finalCost,
-        departure: val.departure,
-        arrival: val.arrival,
-        reference: val.reference,
+        departure,
+        arrival,
+        transport,
+        reference,
       };
     }
     return accCopy;
@@ -36,6 +37,9 @@ export const extractMinFareDeals = deals =>
 const calculateTimeInMinutes = (hours, minutes) =>
   Number(hours) * 60 + Number(minutes);
 
+const makeUniqueDealKey = deal =>
+  `${deal.departure}_${deal.arrival}_${deal.transport}`;
+
 export const extractQuickestDeals = deals =>
   Array.isArray(deals) &&
   deals.reduce((acc, val) => {
@@ -43,6 +47,8 @@ export const extractQuickestDeals = deals =>
     const {
       departure,
       arrival,
+      transport,
+      reference,
       duration: { h: hours, m: minutes },
     } = val;
     const finalCost = calculateTimeInMinutes(hours, minutes);
@@ -51,9 +57,10 @@ export const extractQuickestDeals = deals =>
     if (isUndefined(existingCost) || existingCost > finalCost) {
       accCopy[key] = {
         cost: finalCost,
-        departure: val.departure,
-        arrival: val.arrival,
-        reference: val.reference,
+        departure,
+        arrival,
+        transport,
+        reference,
       };
     }
     return accCopy;
@@ -64,7 +71,7 @@ export const normalizeDeals = deals =>
   deals.reduce(
     (acc, val) => ({
       ...acc,
-      [val.reference]: {
+      [makeUniqueDealKey(val)]: {
         ...val,
       },
     }),
@@ -97,17 +104,18 @@ export const makeGraphFromMinFares = minFaresData => {
       startVertex,
       endVertex,
       minFaresData[val].cost,
-      minFaresData[val].reference,
+      makeUniqueDealKey(minFaresData[val]),
     );
     graph.addEdge(edge);
   });
   return graph;
 };
 
-const mapDealsResponse = ({ deals, currency, totalCost }) => ({
+const mapDealsResponse = ({ deals, currency, totalCost, totalTime }) => ({
   currency,
   deals,
   totalCost,
+  totalTime,
 });
 /**
  *
@@ -129,6 +137,7 @@ const SearchController = async (req, res, next) => {
       currency,
       deals: dealData,
       totalCost: path.val,
+      totalTime: 0,
     });
     res.send({ ...responseData });
   } else if (quickest) {
@@ -142,6 +151,7 @@ const SearchController = async (req, res, next) => {
       currency,
       deals: dealData,
       totalCost: path.val,
+      totalTime: 0,
     });
     res.send({ ...responseData });
   }

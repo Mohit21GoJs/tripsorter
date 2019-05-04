@@ -60,7 +60,7 @@ export default function dijkstra(graph, startVertex, stopVertex) {
         // If we've found shorter path to the neighbor - update it.
         if (distanceToNeighborFromCurrent < existingDistanceToNeighbor) {
           const edges = [
-            ...distances[neighbor.getKey()].edges,
+            // ...distances[neighbor.getKey()].edges,
             ...distances[currentVertex.getKey()].edges,
           ].concat(edge.label);
           distances[neighbor.getKey()] = {
